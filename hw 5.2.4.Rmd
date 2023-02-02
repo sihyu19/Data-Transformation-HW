@@ -1,0 +1,53 @@
+---
+title: '5.2.4'
+author: "siyu"
+date: "2023-01-27"
+output: html_document
+---
+```{r}
+library(nycflights13)
+library(tidyverse)
+
+#filter()
+#arrange()
+#select()
+#mutate()
+#summarize()
+#group_by()
+
+```
+
+1. 
+```{r}
+filter(flights, arr_time>=120)
+filter(flights, dest=="IAH"|dest=="HOU")
+filter(flights, carrier=="UA"|carrier=="AA"|carrier=="DL")
+filter(flights, month==7|month==8|month==9)
+filter(flights, arr_delay>=120&dep_delay<=0)
+filter(flights, dep_delay>=60&dep_delay-arr_delay<30)
+filter(flights, dep_time>=0, dep_time<=360)
+```
+
+2. 1.7 can be written as 
+
+```{r}
+filter(flights, between(dep_time, 0, 360))
+```
+
+3. 8255. These rows represent flights that never take off(cancelled maybe?). 
+
+```{r}
+nrow(filter(flights, is.na(dep_time)))
+```
+
+4. 
+From answer key:
+"-  Why is `NA ^ 0` not missing? Well, this choice by the R developers implies a slightly overbroad statement that for any real number $x$, $x^0 = 1$, which is true provided $x \neq 0$ but the expression $0^0$ is mathematically undefined. However, the code `0^0` evaluates to 1 in R. For an interesting, and mathematically more correct alternative for how to handle this case, see [Wolfram Alpha](https://www.wolframalpha.com/) and enter `0^0` to see how they handle that case.
+
+-  Why is `NA | TRUE` not missing? The key here is to understand that in this context `NA` is standing in for an expression that would evaluate to a logical/Boolean variable, i.e. NA isn't _anything_ in this context; it's either `TRUE` or `FALSE`. But, when you look at either of those cases and consider how it will evaluate when combined with `TRUE` in an OR statement (signified by `|`) then it's easy to see that both  `FALSE | TRUE` and `TRUE | TRUE` will evaluate to `TRUE`.
+
+-  Why is `FALSE & NA` not missing? The same argument holds here as above, except that now it's in an AND statement, so both `FALSE & FALSE` and `FALSE & TRUE`
+will evaluate to `FALSE`.
+
+-  Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
+The general rule is something along the lines of "If the outcome does not depend on what the actual value of NA is, then the expression will evaluate to whatever that outcome is. The `NA*0` counterexample is actually a weird thing to bring up because in _this_ case the developers chose to hew more closely to the strict mathematical line by allowing the possibilities that the `NA` value might be $\pm \infty$ which is, in my opinion, at odds with their smoothing over the $0^0$ case earlier on. But... this is rarely of any practical importance in actual data analysis."
