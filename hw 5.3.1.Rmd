@@ -4,3 +4,38 @@ author: "siyu"
 date: "2023-02-02"
 output: html_document
 ---
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+
+#filter()
+#arrange()
+#select()
+#mutate()
+#summarize()
+#group_by()
+
+```
+
+1. 
+```{r}
+arrange(flights, desc(is.na(dep_time)), dep_time)
+```
+
+2. The most delayed flight is HA 51, and the earliest flight is B6 97. 
+```{r}
+arrange(flights, desc(dep_delay))
+arrange(flights, dep_delay)
+```
+
+3. The fastest flights are EV 4368 and EV 4631. 
+```{r}
+arrange(flights, air_time)
+```
+
+4. The flight that traveled the farthest is HA 51; the flight that traveled the shortest is US 1632.  
+```{r}
+arrange(flights, distance)
+arrange(flights, desc(distance))
+```
