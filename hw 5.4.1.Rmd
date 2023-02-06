@@ -1,0 +1,45 @@
+---
+title: "hw 5.4.1"
+author: "siyu"
+date: "2023-02-06"
+output: html_document
+---
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+
+#filter()
+#arrange()
+#select()
+#mutate()
+#summarize()
+#group_by()
+
+```
+1. 
+```{r}
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
+select(flights, 4, 6, 7, 9)
+select(flights, "dep_time", "dep_delay", "arr_time", "arr_delay")
+```
+
+2. 
+The duplication is ignored. 
+```{r}
+select(flights, dep_time, dep_time)
+select(flights, dep_time, dep_time, arr_time, arr_delay)
+```
+
+3. 
+```{r}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+select(flights, any_of(vars))
+```
+
+4. 
+It doesn't really surprise me(I don't know what surpirses the author is expecting me to have). The contains() function picks out all the coloumns that has "time" in it. 
+
+```{r}
+select(flights, contains("TIME"))
+```
