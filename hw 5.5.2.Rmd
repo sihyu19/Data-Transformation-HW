@@ -1,0 +1,40 @@
+---
+title: "hw 5.5.2"
+author: "siyu"
+date: "2023-02-06"
+output: html_document
+---
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+
+#filter()
+#arrange()
+#select()
+#mutate()
+#summarize()
+#group_by()
+
+```
+
+1. 
+```{r}
+mutate(flights, 
+       dep_time_mins=dep_time%/%100*60+dep_time%%100,
+       sched_dep_time_mins=sched_dep_time%/%100*60+sched_dep_time%%100)
+```
+
+2. 
+For a lot of flights air_time does not equal arr_time-dep_time, which is different from what I expected. In my understanding air time is the time a plane stays in the air, while arrival time and departure times are the exact time when the plane goes through a "gate" in the airport(...?). I don't know how to fix this as they are different concepts. 
+```{r}
+mutate(flights,
+       air_time2=arr_time-dep_time)
+```
+
+3. 
+I expect dep_delay to be equal to sched_dep_time-dep_time. This is true for some flights but not the others. I believe this is because some flights were scheduled before midnight but departed after midnight, thus creating an "error" in the actual departing time recorded and resulting in the difference. 
+```{r}
+mutate(flights,
+       dep_delay_diff=dep_time-sched_dep_time)
+```
