@@ -1,0 +1,44 @@
+---
+title: "hw 5.6.7"
+author: "siyu"
+date: "2023-02-09"
+output: html_document
+---
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+
+#filter()
+#arrange()
+#select()
+#mutate()
+#summarize()
+#group_by()
+
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+```
+1. 
+Arrival delay is more important in most scenarios as the delay might affect further plans of the passengers. If the flight departs late but arrives on time, it doesn't affect the passengers as much, at least economics wise. For most people, I believe the fluctuation in delay is worse than the flight delaying in a consistent manner. Most people would prefer to take a flight that is always 10 minutes late instead of a flight that is 30 minutes late half of the time. 
+
+2. 
+```{r}
+not_cancelled %>% 
+  count(dest)
+
+not_cancelled %>% 
+  count(tailnum, wt = distance)
+```
+
+```{r}
+not_cancelled %>%
+  group_by(dest)%>%
+  summarise(length(dest))
+```
+
+```{r}
+not_cancelled %>%
+  group_by(tailnum)%>%
+  summarise(sum(distance))
+```
