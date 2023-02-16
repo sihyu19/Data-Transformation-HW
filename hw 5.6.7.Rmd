@@ -42,3 +42,23 @@ not_cancelled %>%
   group_by(tailnum)%>%
   summarise(sum(distance))
 ```
+
+3. 
+A flight might crash and not arrive even if departed. These flights are not cancelled. 
+
+4. 
+
+```{r}
+cancelled_per_day <- flights %>% 
+  mutate(cancelled=(is.na(dep_delay) | is.na(arr_delay))) %>%
+  group_by(month, day, year)%>%
+  summarise(
+    cancelled_sum=sum(cancelled))
+```
+```{r}
+ggplot(cancelled_per_day)+
+  geom_point(aes(x=day, y=cancelled_sum))
+```
+
+5. 
+
