@@ -61,4 +61,12 @@ ggplot(cancelled_per_day)+
 ```
 
 5. 
+nope I cannot. 
 
+6. 
+count() counts the number of a certain variable. 
+
+```{r}
+not_cancelled %>%
+  count(carrier)
+```
